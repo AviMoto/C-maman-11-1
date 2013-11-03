@@ -22,16 +22,27 @@
 int string_match(char[MAX_STRING_LENGTH], char[MAX_STRING_LENGTH]);
 
 int main(void) {
-	char pattern[MAX_STRING_LENGTH], text[MAX_STRING_LENGTH]; /* Two string to get from user */
+	char pattern[MAX_STRING_LENGTH], text[MAX_STRING_LENGTH], ch; /* Two string to get from user */
+	int stringCounter;
 
 	/* Get strings from the user */
 	printf("please enter pattern string (max %d chars): ", MAX_STRING_LENGTH);
-	scanf("%s", text);
+	for (stringCounter = 0;
+			((ch = getchar()) != '\n') || stringCounter < MAX_STRING_LENGTH - 1;
+			++stringCounter) {
+		text[stringCounter] = ch;
+	}
+	text[stringCounter] = '\n';
 	printf("please enter text string (max %d chars): ", MAX_STRING_LENGTH);
-	scanf("%s", pattern);
+	for (stringCounter = 0;
+			((ch = getchar()) != '\n') || stringCounter < MAX_STRING_LENGTH - 1;
+			++stringCounter) {
+		pattern[stringCounter] = ch;
+	}
+	pattern[stringCounter] = '\n';
 
 	/* print the best location for string matching */
-	printf("\nThe best match found in: %d", string_match(text, pattern));
+	printf("\nThe best match found in: %d\n", string_match(text, pattern));
 	return EXIT_SUCCESS;
 }
 
@@ -42,13 +53,13 @@ int string_match(char text[MAX_STRING_LENGTH], char pattern[MAX_STRING_LENGTH]) 
 	int textLength, patternLength, searchPointer, comperePointer, bestMatch;
 	int currentMatch, maxMatch;
 
-	maxMatch = bestMatch = 0;	/* reset the paramters */
-	textLength = strlen(text);	/* get the length of text input */
-	patternLength = strlen(pattern);	/* get the length of pattern input */
+	maxMatch = bestMatch = 0; /* reset the paramters */
+	textLength = strlen(text); /* get the length of text input */
+	patternLength = strlen(pattern); /* get the length of pattern input */
 
 	/* loop to check match for all the text string */
 	for (searchPointer = 0; searchPointer < textLength; ++searchPointer) {
-		currentMatch = 0;	/* reset the number of found matches */
+		currentMatch = 0; /* reset the number of found matches */
 
 		/* loop to check all the pattern string */
 		for (comperePointer = 0; comperePointer < patternLength;
@@ -66,9 +77,9 @@ int string_match(char text[MAX_STRING_LENGTH], char pattern[MAX_STRING_LENGTH]) 
 		/* test if the last macth test result is bigger then what saved as the bigger result */
 		if (currentMatch > maxMatch) {
 			maxMatch = currentMatch;
-			bestMatch = searchPointer;	/* update the location */
+			bestMatch = searchPointer; /* update the location */
 		}
 	}
 
-	return bestMatch;	/* return the location of the best match */
+	return bestMatch; /* return the location of the best match */
 }
