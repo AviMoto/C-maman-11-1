@@ -22,24 +22,13 @@
 int string_match(char[MAX_STRING_LENGTH], char[MAX_STRING_LENGTH]);
 
 int main(void) {
-	char pattern[MAX_STRING_LENGTH], text[MAX_STRING_LENGTH], ch; /* Two string to get from user */
-	int stringCounter;
+	char pattern[MAX_STRING_LENGTH], text[MAX_STRING_LENGTH]; /* Two string to get from user */
 
 	/* Get strings from the user */
 	printf("please enter pattern string (max %d chars): ", MAX_STRING_LENGTH);
-	for (stringCounter = 0;
-			((ch = getchar()) != '\n') || stringCounter < MAX_STRING_LENGTH - 1;
-			++stringCounter) {
-		text[stringCounter] = ch;
-	}
-	text[stringCounter] = '\n';
+	fgets(text,MAX_STRING_LENGTH,stdin);
 	printf("please enter text string (max %d chars): ", MAX_STRING_LENGTH);
-	for (stringCounter = 0;
-			((ch = getchar()) != '\n') || stringCounter < MAX_STRING_LENGTH - 1;
-			++stringCounter) {
-		pattern[stringCounter] = ch;
-	}
-	pattern[stringCounter] = '\n';
+	fgets(pattern,MAX_STRING_LENGTH,stdin);
 
 	/* print the best location for string matching */
 	printf("\nThe best match found in: %d\n", string_match(text, pattern));
