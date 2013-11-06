@@ -23,15 +23,25 @@ int string_match(char[MAX_STRING_LENGTH], char[MAX_STRING_LENGTH]);
 
 int main(void) {
 	char pattern[MAX_STRING_LENGTH], text[MAX_STRING_LENGTH]; /* Two string to get from user */
+	char *p; /* Pointer to replace '/n'*/
+	int bestPosition;
 
 	/* Get strings from the user */
 	printf("please enter pattern string (max %d chars): ", MAX_STRING_LENGTH);
 	fgets(text,MAX_STRING_LENGTH,stdin);
+	p = strchr(text,'\n');
+	*p = '\0';
 	printf("please enter text string (max %d chars): ", MAX_STRING_LENGTH);
 	fgets(pattern,MAX_STRING_LENGTH,stdin);
+	p = strchr(pattern,'\n');
+	*p = '\0';
 
 	/* print the best location for string matching */
-	printf("\nThe best match found in: %d\n", string_match(text, pattern));
+	if ((bestPosition = string_match(text, pattern)) > -1){
+		printf("\nThe best match found in: %d\n", bestPosition);
+	} else {
+		printf("\nNo match found\n");
+	}
 	return EXIT_SUCCESS;
 }
 
@@ -42,13 +52,13 @@ int string_match(char text[MAX_STRING_LENGTH], char pattern[MAX_STRING_LENGTH]) 
 	int textLength, patternLength, searchPointer, comperePointer, bestMatch;
 	int currentMatch, maxMatch;
 
-	maxMatch = bestMatch = 0; /* reset the paramters */
+	maxMatch = bestMatch = -1; /* reset the paramters */
 	textLength = strlen(text); /* get the length of text input */
 	patternLength = strlen(pattern); /* get the length of pattern input */
 
 	/* loop to check match for all the text string */
 	for (searchPointer = 0; searchPointer < textLength; ++searchPointer) {
-		currentMatch = 0; /* reset the number of found matches */
+		currentMatch = -1; /* reset the number of found matches */
 
 		/* loop to check all the pattern string */
 		for (comperePointer = 0; comperePointer < patternLength;
@@ -59,6 +69,9 @@ int string_match(char text[MAX_STRING_LENGTH], char pattern[MAX_STRING_LENGTH]) 
 			 */
 			if (pattern[comperePointer]
 					== text[searchPointer + comperePointer]) {
+				if (currentMatch == -1){
+					++currentMatch;
+				}
 				++currentMatch;
 			}
 		}
