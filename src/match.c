@@ -19,6 +19,18 @@
 
 #define MAX_STRING_LENGTH 12	/* the max length for input strings*/
 
+/*
+ * Check the matching between to strings and return the position of the best match
+ *
+ * PARAMS
+ * pattern - string to search for
+ *
+ * text - string to search in it
+ *
+ * RETURN
+ * return integer that represent the position in the text string the has the best match
+ * with the pattern string
+ */
 int string_match(char[MAX_STRING_LENGTH], char[MAX_STRING_LENGTH]);
 
 int main(void) {
