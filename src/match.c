@@ -17,7 +17,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_STRING_LENGTH 10	/* the max length for input strings*/
+#define MAX_STRING_LENGTH 12	/* the max length for input strings*/
 
 int string_match(char[MAX_STRING_LENGTH], char[MAX_STRING_LENGTH]);
 
@@ -27,11 +27,11 @@ int main(void) {
 	int bestPosition;
 
 	/* Get strings from the user */
-	printf("please enter pattern string (max %d chars): ", MAX_STRING_LENGTH);
+	printf("please enter pattern string (max %d chars): ", MAX_STRING_LENGTH-2);
 	fgets(text,MAX_STRING_LENGTH,stdin);
 	p = strchr(text,'\n');
 	*p = '\0';
-	printf("please enter text string (max %d chars): ", MAX_STRING_LENGTH);
+	printf("please enter text string (max %d chars): ", MAX_STRING_LENGTH-2);
 	fgets(pattern,MAX_STRING_LENGTH,stdin);
 	p = strchr(pattern,'\n');
 	*p = '\0';
